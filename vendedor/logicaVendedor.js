@@ -56,7 +56,7 @@ const mostrarVendedores = (
               Guardar
             </button>
             </td>
-            <td><button type="button" id="${vendedor.id}-eliminar" class="btn btn-danger eliminar-btn">Eliminar</button></td>`
+            <td><button data-bs-toggle="modal" href="#myModal" type="button" id="${vendedor.id}-eliminar" class="btn btn-danger eliminar-btn">Eliminar</button></td>`
               : `<td>${vendedor.totalVendido || 0}$</td><td>${
                   vendedor.totalComisionado || 0
                 }$</td>`
@@ -137,8 +137,11 @@ document.querySelector(".sellers-table").addEventListener("click", (event) => {
     localStorage.setItem("vendedores", JSON.stringify(vendedores));
   } else if (event.target.classList.contains("eliminar-btn")) {
     const id = event.target.id.split("-")[0];
-    eliminarVendedor(id);
-    mostrarVendedores("sellers-table");
+    const confirmBtn = document.querySelector("#confirmar-eliminar");
+    confirmBtn.addEventListener("click", () => {
+      eliminarVendedor(id);
+      mostrarVendedores("sellers-table");
+    });
   }
 });
 

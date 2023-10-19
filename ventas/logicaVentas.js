@@ -101,7 +101,7 @@ const agregarFacturasTabla = (element, editar = false, borrar = false) => {
                   Guardar
                 </button>
                 </td>
-                <td><button type="button" id="${venta.id}-eliminar" class="btn btn-danger eliminar-btn">Eliminar</button></td>`
+                <td><button data-bs-toggle="modal" href="#myModal" type="button" id="${venta.id}-eliminar" class="btn btn-danger eliminar-btn">Eliminar</button></td>`
                   : ``
               }
               </tr>
@@ -294,7 +294,10 @@ document.querySelector(".tablaFacturas").addEventListener("click", (event) => {
     localStorage.setItem("facturas", JSON.stringify(ventas));
   } else if (event.target.classList.contains("eliminar-btn")) {
     const id = event.target.id.split("-")[0];
-    eliminarFactura(id);
-    agregarFacturasTabla("tablaFacturas", true, true);
+    const confirmBtn = document.querySelector("#confirmar-eliminar");
+    confirmBtn.addEventListener("click", () => {
+      eliminarFactura(id);
+      agregarFacturasTabla("tablaFacturas", true, true);
+    });
   }
 });
